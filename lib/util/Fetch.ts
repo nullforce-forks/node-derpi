@@ -86,6 +86,14 @@ export interface SearchOptions {
 	page?: number;
 
 	/**
+	 * The number of results to fetch per page
+	 * 
+	 * @type {number}
+	 * @memberof SearchOptions
+	 */
+	perPage?: number;
+
+	/**
 	 * The filter ID to use for this request
 	 *
 	 * @type {number}
@@ -315,7 +323,7 @@ export class Fetch {
 	 * @memberof Fetch
 	 */
 	public static async search(searchOptions: SearchOptions): Promise<SearchResults> {
-		let { query, sortFormat, sortOrder, page, filterID } = searchOptions;
+		let { query, sortFormat, sortOrder, page, perPage, filterID } = searchOptions;
 
 		if (query === undefined || query === '') query = '*';
 		if (sortFormat === undefined) sortFormat = ResultSortFormat.CREATION_DATE;
@@ -330,6 +338,7 @@ export class Fetch {
 				sf: sortFormat,
 				sd: sortOrder,
 				page: page,
+				perpage: perPage,
 				filter_id: filterID
 			}
 		};
